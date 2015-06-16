@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+  </head>
+  <body ng-app="ionicApp">
+
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-nav-view></ion-nav-view>
+
+
+    <script id="templates/tabs.html" type="text/ng-template">
+      <ion-tabs class="tabs-icon-top tabs-positive">
+
+        <ion-tab title="Home" icon="ion-home" href="#/tab/home">
+          <ion-nav-view name="home-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="About" icon="ion-ios-information" href="#/tab/about">
+          <ion-nav-view name="about-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Contact" icon="ion-ios-world" ui-sref="tabs.contact">
+          <ion-nav-view name="contact-tab"></ion-nav-view>
+        </ion-tab>
+
+      </ion-tabs>
+    </script>
+
+    <script id="templates/home.html" type="text/ng-template">
+      <ion-view view-title="Home">
+        <ion-content class="padding">
+            <!-- <a class="button icon icon-right ion-chevron-right" href="#/tab/facts">Scientific Facts</a> -->
+          <div class="list">
+            <div class="item item-thumbnail-left full-width"
+                 ng-repeat="item in feed track by $index"
+                 ui-sref="tabs.facts">
+
+              <img ng-src="{{ item.user.picture.medium  }}" />
+              <h2>{{ $index }} - {{ item.user.name.first }} {{ item.user.name.last }}</h2>
+              <p>@{{ item.user.username }}</p>
+            </div>
+          </div>
+
+          <ion-infinite-scroll
+            icon="ion-loading-c"
+            on-infinite="loadMoreData()">
+          </ion-infinite-scroll>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/facts.html" type="text/ng-template">
+      <ion-view view-title="Facts">
+        <ion-content class="padding">
+          <p>
+            <span class="button icon icon-right ion-chevron-right" ng-click="openModal()">Open modal</span>
+          </p>
+          <div class="list">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 1</span>
+              <input type="text" placeholder="Text Field 1">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 2</span>
+              <input type="text" placeholder="Text Field 2">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 3</span>
+              <input type="text" placeholder="Text Field 3">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 3</span>
+              <input type="text" placeholder="Text Field 3">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 4</span>
+              <input type="text" placeholder="Text Field 4">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 5</span>
+              <input type="text" placeholder="Text Field 5">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 6</span>
+              <input type="text" placeholder="Text Field 6">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 7</span>
+              <input type="text" placeholder="Text Field 7">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 8</span>
+              <input type="text" placeholder="Text Field 8">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 9</span>
+              <input type="text" placeholder="Text Field 9">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Text Field 10</span>
+              <input type="text" placeholder="Text Field 10">
+            </label>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="my-modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar>
+          <h1 class="title">My Modal title</h1>
+        </ion-header-bar>
+        <ion-content>
+          <span class="button icon icon-right ion-chevron-right" ng-click="closeModal()">Hide modal</span>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+
+    <script id="templates/facts2.html" type="text/ng-template">
+      <ion-view view-title="Also Factual">
+        <ion-content class="padding">
+          <p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
+          <p>1 in every 4 Americans has appeared on T.V.</p>
+          <p>11% of the world is left-handed.</p>
+          <p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
+          <p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
+          <p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and dont die throughout the movie.</p>
+          <p>
+            <a class="button icon ion-home" href="#/tab/home"> Home</a>
+            <a class="button icon ion-chevron-left" href="#/tab/facts"> Scientific Facts</a>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/about.html" type="text/ng-template">
+      <ion-view view-title="About">
+        <ion-content class="padding">
+          <h3>Create hybrid mobile apps with the web technologies you love.</h3>
+          <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
+          <p>Built with Sass and optimized for AngularJS.</p>
+          <p>
+            <a class="button icon icon-right ion-chevron-right" href="#/tab/navstack">Tabs Nav Stack</a>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/nav-stack.html" type="text/ng-template">
+      <ion-view view-title="Tab Nav Stack">
+        <ion-content class="padding">
+          <p><img src="http://ionicframework.com/img/diagrams/tabs-nav-stack.png" style="width:100%"></p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/contact.html" type="text/ng-template">
+      <ion-view title="Contact">
+        <ion-content>
+          <div class="list">
+            <div class="item">
+              @IonicFramework
+            </div>
+            <div class="item">
+              @DriftyTeam
+            </div>
+          </div>
+        </ion-content>
+      </ion-view>
+    </script>
+  </body>
+</html>
